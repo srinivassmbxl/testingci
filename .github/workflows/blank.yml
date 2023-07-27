@@ -1,15 +1,60 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
 on:
- push:
- branches: [ main ]
- 
+  push:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
- cfcompile:
- runs-on: ubuntu-latest
- container:
- image: adobecoldfusion/coldfusion2021:2021.0.4
- env:
- acceptEULA: YES
- steps:
- - uses: actions/checkout@v3
- - name: Compile CFML
- run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPAC
+  cfcompile:
+    runs-on: ubuntu-latest
+    container:
+      image: adobecoldfusion/coldfusion2021:2021.0.4
+    env:
+      acceptEULA: YES
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs the cfcompile command inside the docker container
+      - name: Compile CFML
+        run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
+          
+  
+  fixinator:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+    - name: Fixinator Security Scan 
+      uses: foundeo/fixinator-github-action@master
+      with:
+        fixinator_api_key: ${{ secrets.FIXINATOR_API_KEY }}
+  
+  
+  cflint:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/foundeo/cfml-ci-tools/cfml-ci-tools:latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run CFLint	    
+      run: box cflint reportLevel=ERROR
+      
+        
+  codechecker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CodeChecker	    
+      uses: docker://foundeo/cfml-ci-tools:latest
+      with:
+        entrypoint: /opt/box/box
+        args: codechecker run --verbose
+
+  
