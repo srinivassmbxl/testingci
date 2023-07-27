@@ -14,11 +14,13 @@ jobs:
  run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
 
 
- cflint:
- runs-on: ubuntu-latest
- container:
- image: ghcr.io/foundeo/cfml-ci-tools/cfml-ci-tools:latest
- steps:
- - uses: actions/checkout@v3
- - name: Run CFLint	    
- run: box cflint reportLevel=ERROR
+codechecker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CodeChecker	    
+      uses: docker://foundeo/cfml-ci-tools:latest
+      with:
+        entrypoint: /opt/box/box
+        args: codechecker run --verbose
+
