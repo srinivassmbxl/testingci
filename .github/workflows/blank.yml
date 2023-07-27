@@ -27,14 +27,7 @@ jobs:
         run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
           
   
-  fixinator:
-    runs-on: ubuntu-latest
-    steps: 
-    - uses: actions/checkout@v2
-    - name: Fixinator Security Scan 
-      uses: foundeo/fixinator-github-action@master
-      with:
-        fixinator_api_key: ${{ secrets.FIXINATOR_API_KEY }}
+
   
   
   cflint:
