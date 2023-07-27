@@ -1,28 +1,14 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the action will run. 
 on:
-  push:
-    branches: [ master ]
-
-permissions:
-  contents: read
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ push:
+ branches: [ main ]
 jobs:
-  cfcompile:
-    runs-on: ubuntu-latest
-    container:
-      image: adobecoldfusion/coldfusion2021:2021.0.4
-    env:
-      acceptEULA: YES
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs the cfcompile command inside the docker container
-      - name: Compile CFML
-        run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
- 
+ cfcompile:
+ runs-on: ubuntu-latest
+ container:
+ image: adobecoldfusion/coldfusion2021:2021.0.4
+ env:
+ acceptEULA: YES
+ steps:
+ - uses: actions/checkout@v3
+ - name: Compile CFML
+ run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPAC
