@@ -35,3 +35,13 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      cfcompile:
+ runs-on: ubuntu-latest
+ container:
+ image: adobecoldfusion/coldfusion2021:2021.0.4
+ env:
+ acceptEULA: YES
+ steps:
+ - uses: actions/checkout@v3
+ - name: Compile CFML
+ run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
