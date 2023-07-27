@@ -1,2 +1,2 @@
-<cfset str = "THis is testing">
+<cfset str ="THis is testing">
 <cfoutput>#str#</cfoutput
