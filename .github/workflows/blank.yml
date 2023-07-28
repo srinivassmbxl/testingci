@@ -1,9 +1,11 @@
 on:
  push:
  branches: [ main ]
+ 
 jobs:
+ #runs-on: ubuntu-latest
  cfcompile:
- runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
  container:
  image: adobecoldfusion/coldfusion2021:2021.0.4
  env:
