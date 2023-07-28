@@ -1,13 +1,14 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+ push:
+ branches: [ main ]
 jobs:
-   cfcompile:
-      runs-on: ubuntu-latest 
-      container:
-      image: adobecoldfusion/coldfusion2021:2021.0.4
-      env:
-      acceptEULA: YES
-      steps :
-         - uses: actions/checkout@v3
-       run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
+ cfcompile:
+ runs-on: ubuntu-latest
+ container:
+ image: adobecoldfusion/coldfusion2021:2021.0.4
+ env:
+ acceptEULA: YES
+ steps:
+ - uses: actions/checkout@v3
+ - name: Compile CFML
+ run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
