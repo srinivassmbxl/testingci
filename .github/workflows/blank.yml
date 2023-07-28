@@ -16,3 +16,17 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      
+    cfcompile:
+    runs-on: ubuntu-latest 
+    container:
+      image: adobecoldfusion/coldfusion2021:2021.0.4
+    env:
+      acceptEULA: YES
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs the cfcompile command inside the docker container
+      - name: Compile CFML
+        run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
