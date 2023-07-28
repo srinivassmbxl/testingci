@@ -18,7 +18,7 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
       
     cfcompile:
-    runs-on: ubuntu-latest 
+#    runs-on: ubuntu-latest 
     container:
       image: adobecoldfusion/coldfusion2021:2021.0.4
     env:
