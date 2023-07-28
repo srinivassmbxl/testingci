@@ -2,8 +2,7 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-
-    cfcompile:
+   cfcompile:
       runs-on: ubuntu-latest 
       container:
       image: adobecoldfusion/coldfusion2021:2021.0.4
