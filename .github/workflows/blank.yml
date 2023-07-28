@@ -25,3 +25,13 @@ jobs:
       # Runs the cfcompile command inside the docker container
       - name: Compile CFML
         run: /opt/coldfusion/cfusion/bin/cfcompile.sh -cfruntimeuser root -webroot $GITHUB_WORKSPACE -dir $GITHUB_WORKSPACE
+        
+  codechecker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run CodeChecker	    
+      uses: docker://foundeo/cfml-ci-tools:latest
+      with:
+        entrypoint: /opt/box/box
+        args: codechecker run --verbose   
