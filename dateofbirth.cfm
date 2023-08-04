@@ -1,4 +1,4 @@
-<fieldset class="5st_ques">
+  <fieldset class="5st_ques">
     <div class="single_question dob_question">
         <div class="single_ques_top">
             <h3 class="fs-title">When is your birthday?</h3>
